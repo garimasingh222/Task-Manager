@@ -1,0 +1,25 @@
+/* Footer.css */
+
+.footer {
+  background-color: #1f2937; /* Tailwind's gray-900 */
+  color: #d1d5db;           /* Tailwind's gray-300 */
+  padding: 1rem 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;      /* text-sm */
+}
+
+/* Add a subtle top border to separate footer from content */
+.footer {
+  border-top: 1px solid #374151; /* Tailwind's gray-700 */
+}
+
+/* Optional hover effect for links inside footer */
+.footer a {
+  color: #d1d5db;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: #facc15; /* Tailwind's yellow-400 */
+}
