@@ -1,0 +1,1 @@
+{"root":["../src/seed.ts","../src/server.ts","../src/api/task/dashboard.ts","../src/config/db.ts","../src/controllers/authcontrollers.ts","../src/controllers/taskcontroller.ts","../src/middleware/authmiddleware.ts","../src/models/task.ts","../src/models/users.ts","../src/routes/authroutes.ts","../src/routes/tasksroutes.ts","../src/types/express.d.ts"],"version":"5.9.3"}
