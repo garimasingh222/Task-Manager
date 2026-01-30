@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Task from "../models/Task";
+import Task from "../models/Task.js"; // ✅ ensure filename is Task.ts, compiled to Task.js
 
 // ✅ Get all tasks for logged-in user
 export const getTasks = async (req: Request, res: Response) => {

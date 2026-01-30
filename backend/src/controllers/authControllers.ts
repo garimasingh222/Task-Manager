@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import { OAuth2Client } from "google-auth-library";
-import User from "../models/Users"; // 👈 make sure your file is User.ts, not Users.ts
+import User from "../models/Users.js"; // ✅ ensure filename is users.ts, compiled to users.js
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID!);
 
@@ -51,6 +51,11 @@ export const loginUser = async (req: Request, res: Response) => {
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: "User not found" });
+    }
+
+    // Guard against missing password (Google users)
+    if (!user.password) {
+      return res.status(400).json({ message: "This account was created with Google login. Please use Google sign-in." });
     }
 
     // Compare password
