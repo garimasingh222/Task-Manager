@@ -1,17 +1,15 @@
-// src/app/hooks/useTasks.ts
-import { useQuery } from "@tanstack/react-query"
-import { fetchTasks } from "../../features/tasks/api/tasks.api"
-import type { Task } from "../lib/typing"
+import { useQuery } from "@tanstack/react-query";
+import { getTasks } from "../../features/tasks/api/tasks.api";
+import type { Task } from "../../features/tasks/api/tasks.api";
 
-interface DashboardData {
-  assigned: Task[]
-  created: Task[]
-  overdue: Task[]
+// Matches API response
+interface GetTasksResponse {
+  tasks: Task[];
 }
 
-export function useTasks() {
-  return useQuery<DashboardData>({
+export function useTasks(token: string) {
+  return useQuery<GetTasksResponse>({
     queryKey: ["tasks"],
-    queryFn: fetchTasks,
-  })
+    queryFn: () => getTasks(token), // ✅ aligned with tasks.api.ts
+  });
 }

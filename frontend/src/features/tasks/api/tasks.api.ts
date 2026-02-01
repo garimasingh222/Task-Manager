@@ -4,6 +4,7 @@ export interface Task {
   id: string;
   title: string;
   description: string;
+  dueDate?: string; // optional to avoid TS errors
 }
 
 interface GetTasksResponse {
