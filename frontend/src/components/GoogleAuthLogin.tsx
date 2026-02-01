@@ -11,17 +11,21 @@ export default function GoogleAuthLogin() {
   const [error, setError] = useState<string | null>(null);
 
   const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
-    console.log("Credential Response:", credentialResponse);
-
     if (!credentialResponse.credential) return;
+
     try {
       const res = await api.post("/api/auth/google", {
         credential: credentialResponse.credential,
       });
-      console.log("Backend response:", res.data);
 
-      login(res.data.token); // ✅ save JWT
-      navigate("/dashboard"); // ✅ redirect
+      // ✅ Pass both token and user object
+      login(res.data.token, {
+        name: res.data.user?.name,
+        email: res.data.user.email,
+        picture: res.data.user?.picture,
+      });
+
+      navigate("/dashboard");
     } catch {
       setError("Google login failed. Try again.");
     }

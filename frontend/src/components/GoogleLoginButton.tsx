@@ -5,20 +5,26 @@ import { useAuth } from "../app/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-export default function GoogleAuthLogin() {
+export default function GoogleLoginButton() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
 
   const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
-    console.log("Credential Response:", credentialResponse);
-
     if (!credentialResponse.credential) return;
+
     try {
       const res = await api.post("/api/auth/google", {
         credential: credentialResponse.credential,
       });
-      login(res.data.token);
+
+      // ✅ Pass both token and user object
+      login(res.data.token, {
+        name: res.data.user?.name,
+        email: res.data.user.email,
+        picture: res.data.user?.picture,
+      });
+
       navigate("/dashboard");
     } catch {
       setError("Google login failed. Try again.");

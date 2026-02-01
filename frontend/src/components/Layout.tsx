@@ -1,4 +1,4 @@
-import Navbar from "./Navbar";
+import Navbar from "../app/Navbar"; // ✅ corrected path
 import Footer from "../app/Footer";
 import { Outlet, useLocation } from "react-router-dom";
 
