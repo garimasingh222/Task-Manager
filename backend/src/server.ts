@@ -1,10 +1,10 @@
 import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import mongoose from "mongoose";
-import authRoutes from "./routes/authRoutes.js";
-import tasksRoutes from "./routes/tasksRoutes.js";
 import dotenv from "dotenv";
+import { connectDB } from "./config/db"; // ✅ use your db.ts
+import authRoutes from "./routes/authRoutes";
+import tasksRoutes from "./routes/tasksRoutes";
 
 dotenv.config();
 
@@ -13,9 +13,17 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
+
+// ✅ Allow multiple origins (local + deployed)
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://task-manager-garima.netlify.app",
+  "https://task-manager-ten-sage.vercel.app",
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
@@ -24,11 +32,8 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", tasksRoutes);
 
-// MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI!)
-  .then(() => console.log("✅ Connected to MongoDB"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err));
+// ✅ Connect DB before starting server
+connectDB();
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
