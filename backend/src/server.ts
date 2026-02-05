@@ -2,9 +2,9 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import dotenv from "dotenv";
-import { connectDB } from "./config/db"; // ✅ use your db.ts
-import authRoutes from "./routes/authRoutes";
-import tasksRoutes from "./routes/tasksRoutes";
+import { connectDB } from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
+import tasksRoutes from "./routes/tasksRoutes.js";
 
 dotenv.config();
 
